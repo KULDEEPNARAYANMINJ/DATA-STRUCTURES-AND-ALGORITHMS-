@@ -1,0 +1,52 @@
+
+void solve(vector<int>op, vector<int> ip, vector<vector<int>>&result)
+{
+
+    
+    if(ip.size() == 0)
+    {
+
+
+        result.push_back(op);
+        return;
+    }
+    
+    vector<int> temp;
+    solve(op, temp, result);
+    
+    int sizeOfIp = ip.size();
+    for(int i = 0;i<sizeOfIp; i++)
+    {
+        op.push_back(ip[0]);
+        ip.erase(ip.begin() + 0);
+        
+        solve(op, ip, result);
+        
+        op.pop_back();
+    }
+}
+
+vector<vector<int>> subset(vector<int> v)
+{
+    vector<vector<int>> result;
+    vector<int>op;
+    
+    solve(op, v, result);
+    
+    return result;
+}
+
+
+vector<vector<int> > Solution::subsets(vector<int> &A) {
+
+    vector<vector<int>> result;     
+    if(A.size() == 0) return {{}};
+
+    vector<int>op;
+
+    sort(A.begin(), A.end());
+    
+    solve(op, A, result);
+    
+    return result;
+}
