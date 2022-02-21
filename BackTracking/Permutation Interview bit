@@ -1,0 +1,32 @@
+void solve(vector<int> op, vector<int> ip, vector<vector<int>> &result)
+{
+    if(ip.size() == 0)
+    {
+        result.push_back(op);
+        return;
+    }
+
+    int n = ip.size();
+
+    for(int i = 0;i<n;i++)
+    {
+        int temp = ip[0];
+        op.push_back(temp);
+        ip.erase(ip.begin() + 0);
+
+        solve(op,ip,result);
+
+        op.pop_back();
+        ip.push_back(temp);
+    }
+}
+
+vector<vector<int> > Solution::permute(vector<int> &A) {
+
+    vector<vector<int>> result;
+    vector<int> op;
+
+    solve(op,A,result);
+
+    return result;
+}
