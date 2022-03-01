@@ -1,0 +1,163 @@
+
+int visited[100][100];
+vector<vector<string>> result;
+
+
+string getStr(int j, int n)
+{
+    string str;
+    for(int k = 0;k < n;k++)
+    {
+        if(j == k)
+        {
+            str.push_back('Q');
+        }
+        else
+        {
+            str.push_back('.');
+        }
+    }
+
+    return str;
+}
+
+void markVisited(int row, int col, int n)
+{
+    for(int i = 0;i<n;i++)
+    {
+        visited[row][i]++;
+        visited[i][col]++;
+    }
+
+    int i = row, j = col;
+
+    while(i >= 0 && i < n && j >= 0 && j < n)
+    {
+        visited[i][j]++;
+        i++;
+        j--;
+    }
+
+    i = row;
+    j = col;
+
+       while(i >= 0 && i < n && j >= 0 && j < n)
+    {
+        visited[i][j]++;
+        i--;
+        j++;
+    }
+
+    i = row;
+    j = col;
+
+
+       while(i >= 0 && i < n && j >= 0 && j < n)
+    {
+        visited[i][j]++;
+        i++;
+        j++;
+    }
+
+    i = row;
+    j = col;
+
+       while(i >= 0 && i < n && j >= 0 && j < n)
+    {
+        visited[i][j]++;
+        i--;
+        j--;
+    }
+}
+
+
+void markUnVisited(int row, int col, int n)
+{
+    for(int i = 0;i<n;i++)
+    {
+        visited[row][i]--;
+        visited[i][col]--;
+    }
+
+    int i = row, j = col;
+
+    while(i >= 0 && i < n && j >= 0 && j < n)
+    {
+        visited[i][j]--;
+        i++;
+        j--;
+    }
+
+    i = row;
+    j = col;
+
+       while(i >= 0 && i < n && j >= 0 && j < n)
+    {
+        visited[i][j]--;
+        i--;
+        j++;
+    }
+
+    i = row;
+    j = col;
+
+       while(i >= 0 && i < n && j >= 0 && j < n)
+    {
+        visited[i][j]--;
+        i++;
+        j++;
+    }
+
+    i = row;
+    j = col;
+
+       while(i >= 0 && i < n && j >= 0 && j < n)
+    {
+        visited[i][j]--;
+        i--;
+        j--;
+    }
+}
+
+
+
+
+
+void solver(int i, int n, vector<string> Vstr)
+{
+    for(int j = 0;j<n;j++)
+    {
+        if(visited[i][j] == 0)
+        {
+            string str = getStr(j,n);
+            Vstr.push_back(str);
+
+            if(i == n-1)
+            {
+              result.push_back(Vstr);
+              return;
+            }
+
+            markVisited(i,j,n);
+            solver(i+1, n, Vstr);
+            markUnVisited(i,j,n);
+            Vstr.pop_back();
+        }
+    }
+}
+
+
+vector<vector<string> > Solution::solveNQueens(int A) {
+
+
+
+    memset(visited, 0, sizeof(visited));
+    result.clear();
+    
+    vector<string> Vstr;
+    
+    solver(0,A,Vstr);
+
+    return result;
+
+}
