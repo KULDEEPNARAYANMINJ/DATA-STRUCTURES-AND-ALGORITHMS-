@@ -1,0 +1,47 @@
+
+bool comp(vector<int>&a,vector<int>&b)
+{
+    int dist1 = a[0] * a[0] + a[1] * a[1];
+    int dist2 = b[0] * b[0] + b[1] * b[1];
+    
+    if(dist1 == dist2)
+    {
+        return abs(a[0]) > abs(b[0]);
+    }
+    return dist1 > dist2;
+}
+
+vector<vector<int>> deliveryPlan(vector<vector<int>> allocations, int numDeliveries)
+{
+    sort(allocations.begin(), allocations.end(), comp);
+    
+    return {allocations.begin(), allocations.begin() + numDeliveries};
+}
+
+int main() {
+    
+    vector<vector<int>> allocations;
+    int n; cin>>n;
+    for(int i = 0;i<n;i++)
+    {
+        int a, b; 
+        cin>>a>>b;
+        
+        allocations.push_back({a,b});
+    }
+    
+    int k; cin>>k;
+    
+    vector<vector<int>> result = deliveryPlan(allocations, k);
+    
+    for(auto x : result)
+    {
+        for(auto y : x)
+        {
+            cout<<y<<" ";
+        }
+        cout<<endl;
+    }
+    
+    
+}
