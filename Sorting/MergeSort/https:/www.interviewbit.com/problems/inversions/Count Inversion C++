@@ -1,0 +1,76 @@
+
+int merge(int l, int mid, int r, vector<int>&A)
+{
+    int m = mid-l+1;
+    int n = r-mid;
+
+    int a[m];
+    int b[n];
+
+    for(int i = 0;i<m;i++) a[i] = A[i+l];
+    for(int i = 0;i<n;i++) b[i] = A[mid+1+i];
+
+    int i = 0, j = 0;
+
+    int inversions = 0;
+
+    while(i < m && j < n)
+    {
+        if(a[i] <= b[j])
+        {
+            A[l] = a[i];
+            i++;
+            l++;
+        }
+        else
+        {
+            A[l] = b[j];
+            j++;
+            l++;
+
+            inversions += m-i;
+        }
+    }
+
+ while(i < m)
+        {
+            A[l] = a[i];
+            i++;
+            l++;
+        }
+   while(j < n)
+        {
+            A[l] = b[j];
+            j++;
+            l++;
+        }
+
+    return inversions;
+    
+    }
+
+
+int mergeSort(int l, int r, vector<int>& A)
+{
+    if(l == r) return 0;
+
+    int mid = (l+r)/2;
+
+    int totalInversions = 0;
+
+    totalInversions += mergeSort(l,mid,A);
+      totalInversions += mergeSort(mid+1, r, A);
+
+      totalInversions += merge(l,mid,r, A);
+
+      return totalInversions;
+}
+
+int Solution::countInversions(vector<int> &A) {
+
+   int answer =  mergeSort(0, A.size()-1, A);
+
+   return answer;
+
+
+}
