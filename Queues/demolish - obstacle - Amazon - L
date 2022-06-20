@@ -28,7 +28,7 @@ int distanceTraversed(vector<vector<int>> &lot)
         if(!isValid(r,c,R,C)) continue;
         else if(lot[r][c] == 0) continue;
         else if(lot[r][c] == 9) return d;
-        
+        lot[r][c] = 0;
         q.push({r-1, c, d+1});
         q.push({r, c-1, d+1});
         q.push({r+1, c, d+1});
