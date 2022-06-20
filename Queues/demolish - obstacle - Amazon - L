@@ -1,0 +1,62 @@
+struct node{
+    int r;
+    int c; 
+    int d;
+};
+
+bool isValid(int r, int c, int R, int C)
+{
+    return r >= 0 && c >= 0 && r < R && c < C;
+}
+
+
+int distanceTraversed(vector<vector<int>> &lot)
+{
+    
+    int R = lot.size();
+    int C = lot[0].size();
+    queue<node> q;
+    q.push({0,0,0});
+    
+    while(q.size() > 0)
+    {
+        node curr = q.front();
+        q.pop();
+        
+        int r = curr.r, c = curr.c, d = curr.d;
+        
+        if(!isValid(r,c,R,C)) continue;
+        else if(lot[r][c] == 0) continue;
+        else if(lot[r][c] == 9) return d;
+        
+        q.push({r-1, c, d+1});
+        q.push({r, c-1, d+1});
+        q.push({r+1, c, d+1});
+        q.push({r, c+1, d+1});
+    }
+    
+    return -1;
+}
+
+
+int main() {
+    
+    vector<vector<int>> lot;
+    
+    int R, C; cin>>R>>C;
+    
+    for(int i = 0;i<R;i++)
+    {
+        vector<int>v;
+        for(int j = 0;j<C;j++)
+        {
+            int val; cin>>val;
+            v.push_back(val);
+        }
+        
+        lot.push_back(v);
+    }
+    
+    cout<<distanceTraversed(lot);
+   
+}
