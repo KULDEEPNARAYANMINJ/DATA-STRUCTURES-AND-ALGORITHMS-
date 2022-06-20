@@ -1,0 +1,57 @@
+int sq(int a)
+{
+    return a*a;
+}
+
+bool comp(const vector<int> a, const vector<int> b)
+{
+    int d1 = sq(a[0]) + sq(a[1]);
+    int d2 = sq(b[0]) + sq(b[1]);
+    
+    if(d1 == d2)
+    {
+        return abs(a[0]) < abs(b[0]);
+    }
+    
+    return d1 < d2;
+}
+
+vector<vector<int>> deliveryPlan(vector<vector<int>> &allocations, int numDeliveries)
+{
+    sort(allocations.begin(), allocations.end(), comp);
+    
+    return {allocations.begin(), allocations.begin() + numDeliveries};
+}
+
+int main() {
+ 
+    vector<vector<int>> allocations;
+    
+    for(int i = 0;i<3;i++)
+    {
+        vector<int>v;
+        int a, b; 
+        cin>>a>>b;
+        v.push_back(a);
+        v.push_back(b);
+        
+        allocations.push_back(v);
+    }
+    
+    int numDeliveries; cin>>numDeliveries;
+    
+    
+    
+    vector<vector<int>> result = deliveryPlan(allocations, numDeliveries);
+    
+    for(auto x : result)
+    {
+        for(auto y : x)
+        {
+            cout<<y<<",";
+        }
+        cout<<endl;
+    }
+    
+    
+}
